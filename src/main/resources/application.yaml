@@ -1,0 +1,22 @@
+server:
+  servlet:
+    context-path: /employment-management
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: root
+      password: rootpassword
+      database: test_db
+      port: 27017
+      host: localhost
+
+
+  jpa:
+    properties:
+      hibernate:
+        ogm:
+          datastore:
+            create_database: true

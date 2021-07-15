@@ -1,0 +1,68 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.ohdoking'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+springBoot {
+	mainClassName = 'com.ohdoking.employeemanagement.EmployeeManagementApplication'
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+}
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// mongodb
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+	// web service
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// unit test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'junit:junit:4.12'
+
+	// swagger docs
+	implementation 'org.springdoc:springdoc-openapi-ui:1.5.2'
+
+	// etc
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+task unpacking(type: Exec) {
+	executable = "bash"
+	args = ["-c", "mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)"]
+}
+
+build.finalizedBy(unpacking)
