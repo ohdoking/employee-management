@@ -1,9 +1,9 @@
 # Employee management Application
 
-Employee management Application is for managing state of user.
+Employee management Application is for creating and update state of employee.
 
 ## Features
-- Instrument-Price retrieval via REST endpoint
+- Post and patch employee via REST endpoint
 
 ## Software/Frameworks/Libs used for Employee management Application
 * Java
@@ -43,3 +43,43 @@ When you run docker compose file, the Employee management application and rest o
 
 The detail REST Endpoint description is in [swagger document](http://localhost:8080/employment-management/swagger-ui.html)
 # employee-management
+
+## Test
+
+### how to test with rest api
+
+#### 1. test with curl
+
+##### create employee
+```
+    curl --location --request POST 'http://localhost:8080/employment-management/employee' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "name" : "dokeun",
+        "age" : 30,
+        "contract" : {
+            "id" : "sample_id",
+            "name": "contract"
+        }
+    }'
+```
+
+##### update employee state
+
+```
+    curl --location --request PATCH 'http://localhost:8080/employment-management/employee/60f0be2562d0ff4845480fc0/state' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "state" : "APPROVED"
+    }'
+```
+
+#### 2. run unit test
+
+This project has implemented unit test.
+To run unit test, you can execute below command.
+```
+    gradle clean test 
+```
+
+
